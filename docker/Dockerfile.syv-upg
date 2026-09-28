@@ -1,0 +1,56 @@
+# Dockerfile.syv-upg — Qwen3.8-27B optimized serving image
+#
+# Starts from vllm/vllm-openai:v0.28.0, applies 43 patches.
+#
+# Build:
+#   docker build -f docker/Dockerfile.syv-upg -t qwen38-27b:syv-upg .
+#
+# The 43 patches are applied on top of vLLM 0.28.0 source.
+# See patches/ directory for the actual patch files.
+
+FROM vllm/vllm-openai:v0.28.0
+
+# System deps
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    git ca-certificates curl && \
+    rm -rf /var/lib/apt/lists/*
+
+# Install patch tooling
+RUN pip install --no-cache-dir patch
+
+# Apply patches (in order)
+COPY docker/patches/ /tmp/patches/
+RUN set -e; \
+    cd /usr/local/lib/python3.12/site-packages/vllm; \
+    for p in /tmp/patches/*.patch; do \
+        echo "Applying: $(basename $p)"; \
+        patch -p1 < "$p" || { echo "FAILED: $p"; exit 1; }; \
+    done; \
+    rm -rf /tmp/patches
+
+# Install Triton kernels (for split-KV)
+COPY docker/patches/triton_kernels/ /usr/local/lib/python3.12/site-packages/vllm/v1/attention/backends/
+RUN chmod +x /usr/local/lib/python3.12/site-packages/vllm/v1/attention/backends/*.py
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=300s \
+    CMD curl -sf http://localhost:8000/health || exit 1
+
+# Default: start vLLM server
+CMD ["vllm", "serve", "/host/models/Qwen3.8-27B-NVFP4", \
+     "--served-model-name", "qwen3.8-27b", \
+     "--max-model-len", "229376", \
+     "--gpu-memory-utilization", "0.86", \
+     "--max-num-seqs", "4", \
+     "--kv-cache-dtype", "fp8", \
+     "--max-num-batched-tokens", "16384", \
+     "--disable-async-output-proc", \
+     "--reasoning-parser", "qwen3", \
+     "--trust-remote-code", \
+     "--enforce-eager", \
+     "--enable-auto-tool-choice", \
+     "--tool-call-parser", "qwen3_coder", \
+     "--distributed-executor-backend", "mp", \
+     "--tensor-parallel-size", "2", \
+     "--enable-prefix-caching", \
+     "--speculative-config", "{\"method\":\"mtp\",\"num_speculative_tokens\":4,\"draft_tensor_parallel_size\":2}"]

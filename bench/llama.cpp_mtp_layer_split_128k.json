@@ -1,0 +1,74 @@
+[
+  {
+    "label": "110k",
+    "size_target": 110000,
+    "prompt_tokens": 97923,
+    "completion_tokens": 366,
+    "total_time": 51.78,
+    "ttfb_sec": 38.343,
+    "gen_time_sec": 13.44,
+    "gen_speed": 27.2,
+    "prompt_speed": 2554.0,
+    "ttfb_ms": 38343.0
+  },
+  {
+    "label": "140k",
+    "size_target": 140000,
+    "prompt_tokens": 124649,
+    "completion_tokens": 320,
+    "total_time": 97.39,
+    "ttfb_sec": 85.071,
+    "gen_time_sec": 12.32,
+    "gen_speed": 26.0,
+    "prompt_speed": 1465.0,
+    "ttfb_ms": 85071.0
+  },
+  {
+    "label": "170k",
+    "size_target": 170000,
+    "prompt_tokens": 151536,
+    "completion_tokens": 285,
+    "total_time": 98.92,
+    "ttfb_sec": 86.175,
+    "gen_time_sec": 12.75,
+    "gen_speed": 22.4,
+    "prompt_speed": 1758.0,
+    "ttfb_ms": 86175.0
+  },
+  {
+    "label": "200k",
+    "size_target": 200000,
+    "prompt_tokens": 178753,
+    "completion_tokens": 300,
+    "total_time": 113.19,
+    "ttfb_sec": 100.745,
+    "gen_time_sec": 12.45,
+    "gen_speed": 24.1,
+    "prompt_speed": 1774.0,
+    "ttfb_ms": 100745.0
+  },
+  {
+    "label": "230k",
+    "size_target": 230000,
+    "prompt_tokens": 205977,
+    "completion_tokens": 299,
+    "total_time": 136.08,
+    "ttfb_sec": 121.584,
+    "gen_time_sec": 14.5,
+    "gen_speed": 20.6,
+    "prompt_speed": 1694.0,
+    "ttfb_ms": 121584.0
+  },
+  {
+    "label": "240k",
+    "size_target": 240000,
+    "prompt_tokens": 215161,
+    "completion_tokens": 371,
+    "total_time": 65.74,
+    "ttfb_sec": 46.767,
+    "gen_time_sec": 18.97,
+    "gen_speed": 19.6,
+    "prompt_speed": 4601.0,
+    "ttfb_ms": 46767.0
+  }
+]

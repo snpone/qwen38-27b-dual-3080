@@ -1,0 +1,11 @@
+{
+  "prompt_tokens_approx": 254485,
+  "reasoning_tokens": 0,
+  "content_tokens": 1,
+  "total_output_tokens": 1,
+  "ttfb_content_sec": 480.534,
+  "ttfb_reasoning_sec": null,
+  "gen_time_sec": 0.01,
+  "gen_speed_tps": 82.6,
+  "total_time": 480.55
+}
