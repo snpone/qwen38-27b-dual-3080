@@ -46,7 +46,7 @@ The 20 GB variant is a 10 GB card with a 20 GB memory mod (common in the Chinese
 ### Prerequisites
 
 - 2× 20 GB sm_86 GPUs (or similar)
-- ≥ 192 GB system RAM
+- ≥ 16 GB system RAM (32 GB comfortable)
 - NVIDIA driver ≥ 535, Docker
 - ~50 GB disk for weights
 
